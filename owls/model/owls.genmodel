@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/owls/src"
+    modelPluginID="owls" modelName="Owls" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>owls.ecore</foreignModel>
+  <genPackages prefix="Owls" disposableProviderFactory="true" ecorePackage="owls.ecore#/">
+    <genClasses ecoreClass="owls.ecore#//Owls">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//Owls/namespace"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//Owls/ontology"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference owls.ecore#//Owls/service"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//Owls/profile"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//Owls/process"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsOntology">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsOntology/imports"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsService">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsService/iD"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsService/presents"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference owls.ecore#//OwlsService/describedBy"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsService/supports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsService/ownedBy"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsProfile">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsProfile/iD"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsProfile/serviceName"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference owls.ecore#//OwlsProfile/isPresentedBy"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsProfile/hasProcess"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsWsdlGrounding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsWsdlGrounding/iD"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference owls.ecore#//OwlsWsdlGrounding/supportedBy"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsWsdlGrounding/hasAtomicProcessGrounding"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsWsdlAtomicProcessGrounding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsWsdlAtomicProcessGrounding/iD"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsProcess">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsProcess/iD"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsProcess/label"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsProcess/processURI"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsProcess/referenceName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsProcess/describes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsProcess/peformedBy"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsProcess/hasInputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsProcess/hasOutputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsProcess/bindings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsProcess/messagesBindings"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsAtomicProcess"/>
+    <genClasses ecoreClass="owls.ecore#//OwlsCompositeProcess">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsCompositeProcess/composedOf"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsControlConstruct">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsControlConstruct/processes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsControlConstruct/constructs"/>
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference owls.ecore#//OwlsControlConstruct/elements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsControlConstruct/messages"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsSequence"/>
+    <genClasses ecoreClass="owls.ecore#//OwlsSplit"/>
+    <genClasses ecoreClass="owls.ecore#//OwlsAnyOrder"/>
+    <genClasses ecoreClass="owls.ecore#//OwlsPeform">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsPeform/iD"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference owls.ecore#//OwlsPeform/process"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsParameter/iD"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsParameter/parameterType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute owls.ecore#//OwlsParameter/label"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsInput"/>
+    <genClasses ecoreClass="owls.ecore#//OwlsOutput"/>
+    <genClasses ecoreClass="owls.ecore#//OwlsAssign">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssign/target"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssign/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssign/inputTarget"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssign/outputSource"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsClientMessage"/>
+    <genClasses ecoreClass="owls.ecore#//OwlsInputClientMessage">
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference owls.ecore#//OwlsInputClientMessage/clientInputs"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsOutputClientMessage">
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference owls.ecore#//OwlsOutputClientMessage/clientOutputs"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsAssignClient">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssignClient/processReference"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsAssignInputClient">
+      <genFeatures property="None" notify="false" createChild="false" propertyCategory=""
+          propertyDescription="" propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssignInputClient/clientReference"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="" propertyDescription=""
+          propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssignInputClient/inputReferences"/>
+      <genFeatures notify="false" createChild="false" propertyDescription="Output"
+          propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssignInputClient/outputsReferences"/>
+    </genClasses>
+    <genClasses ecoreClass="owls.ecore#//OwlsAssignOutputClient">
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference owls.ecore#//OwlsAssignOutputClient/clientReference"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssignOutputClient/inputReferences"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference owls.ecore#//OwlsAssignOutputClient/outputsReferences"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

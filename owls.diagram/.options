@@ -1,0 +1,7 @@
+# Tracing options for the owls.diagram plug-in
+
+# Common issues
+owls.diagram/debug=false
+
+# Visual IDs
+owls.diagram/debug/visualID=false

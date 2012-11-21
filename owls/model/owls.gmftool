@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="owlsPalette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="owls">
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Processes"
+          collapsible="true"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Sequence"
+            description="Create new OwlsSequence">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Split"
+            description="Create new OwlsSplit">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="AnyOrder"
+            description="Create new AnyOrder">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Imported Process"
+          collapsible="true"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Process">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Connections"
+          collapsible="true"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Assign"
+            description="Create new OwlsAssign">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/axis/axis-ant.jar"/>
+	<classpathentry kind="lib" path="lib/axis/axis.jar"/>
+	<classpathentry kind="lib" path="lib/axis/commons-discovery.jar"/>
+	<classpathentry kind="lib" path="lib/axis/commons-httpclient-3.0-alpha1.jar"/>
+	<classpathentry kind="lib" path="lib/axis/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/axis/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="lib/axis/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="lib/axis/saaj.jar"/>
+	<classpathentry kind="lib" path="lib/axis/wsdl4j.jar"/>
+	<classpathentry kind="lib" path="lib/jena/arq/arq.jar"/>
+	<classpathentry kind="lib" path="lib/jena/antlr.jar"/>
+	<classpathentry kind="lib" path="lib/jena/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/jena/concurrent.jar"/>
+	<classpathentry kind="lib" path="lib/jena/icu4j.jar"/>
+	<classpathentry kind="lib" path="lib/jena/jakarta-oro-2.0.5.jar"/>
+	<classpathentry kind="lib" path="lib/jena/jena.jar"/>
+	<classpathentry kind="lib" path="lib/jena/junit.jar"/>
+	<classpathentry kind="lib" path="lib/jena/log4j-1.2.7.jar"/>
+	<classpathentry kind="lib" path="lib/jena/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib/jena/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/pellet/aterm-java-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/pellet/pellet.jar"/>
+	<classpathentry kind="lib" path="lib/owl-s.jar"/>
+	<classpathentry kind="lib" path="lib/upnp.jar"/>
+	<classpathentry kind="lib" path="lib/owlsDiscovey.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

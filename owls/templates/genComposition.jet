@@ -1,0 +1,303 @@
+<%@ jet package="owls.generator"
+class="GenComposition" imports ="java.util.Iterator org.eclipse.emf.common.util.EList
+java.util.List java.util.ArrayList org.eclipse.emf.ecore.EObject org.eclipse.emf.ecore.EReference
+org.eclipse.emf.ecore.EStructuralFeature owls.*;"%>
+<% List arg = (ArrayList)argument;
+List rest = (List)arg.get(0);
+EObject cc = (EObject)rest.get(0);
+String ident = (String)arg.get(1);
+String identAdd = new String();
+identAdd ="			";
+
+
+if (cc instanceof OwlsAtomicProcess){
+	OwlsAtomicProcess aProcess = (OwlsAtomicProcess)cc;
+	if ((aProcess.eContainer() instanceof OwlsSequence)){%>
+<%=ident%><process:ControlConstructList>
+		  <%=ident%><%=ident%><list:first rdf:resource="#<%=aProcess.getPeformedBy().getID()%>" />
+		  <%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  %><%=ident%><list:rest><%
+					 GenComposition gen = new GenComposition();
+			   		 List newArg = new ArrayList();
+				     newArg.add(rest.subList(1,rest.size()));
+				     newArg.add(ident+identAdd);%>
+				     <%=gen.generate(newArg)%>
+
+		  <%=ident%></list:rest><%
+		  }else {
+		  %><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+		  }%>
+<%=ident%></process:ControlConstructList><%
+	}
+  	if ((aProcess.eContainer() instanceof OwlsAnyOrder) ||
+  		(aProcess.eContainer() instanceof OwlsSplit)){%>
+<%=ident%><process:ControlConstructBag>
+		  <%=ident%><list:first rdf:resource="#<%=aProcess.getPeformedBy().getID()%>" />
+		  <%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  %><%=ident%><list:rest><%
+					 GenComposition gen = new GenComposition();
+			   		 List newArg = new ArrayList();
+				     newArg.add(rest.subList(1,rest.size()));
+				     newArg.add(ident+identAdd);%>
+				     <%=gen.generate(newArg)%>
+		  <%=ident%></list:rest><%
+		  }else {
+		  %><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+		  }%>
+<%=ident%></process:ControlConstructBag><%
+	}
+}
+
+if (cc instanceof OwlsCompositeProcess){
+	OwlsCompositeProcess cProcess = (OwlsCompositeProcess)cc;
+	if ((cProcess.eContainer() instanceof OwlsSequence)){%>
+<%=ident%><process:ControlConstructList>
+		  <%=ident%><list:first rdf:resource="#<%=cProcess.getPeformedBy().getID()%>" />
+		  <%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  %><%=ident%><list:rest><%
+					 GenComposition gen = new GenComposition();
+			   		 List newArg = new ArrayList();
+				     newArg.add(rest.subList(1,rest.size()));
+				     newArg.add(ident+identAdd);%>
+				     <%=gen.generate(newArg)%>
+		  <%=ident%></list:rest><%
+		  }else {
+		  %><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+		  }%>
+<%=ident%></process:ControlConstructList><%
+	}
+  	if ((cProcess.eContainer() instanceof OwlsAnyOrder) ||
+  		(cProcess.eContainer() instanceof OwlsSplit)){%>
+<%=ident%><process:ControlConstructBag>
+		  <%=ident%><list:first rdf:resource="#<%=cProcess.getPeformedBy().getID()%>" />
+		  <%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  %><%=ident%><list:rest><%
+					 GenComposition gen = new GenComposition();
+			   		 List newArg = new ArrayList();
+				     newArg.add(rest.subList(1,rest.size()));
+				     newArg.add(ident+identAdd);%>
+				     <%=gen.generate(newArg)%>
+		  <%=ident%></list:rest><%
+		  }else {
+		  %><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+		  }%>
+<%=ident%></process:ControlConstructBag><%
+	}
+}
+
+if (cc instanceof OwlsSequence){
+	OwlsSequence sequence = (OwlsSequence)cc;
+	if (!(sequence.eContainer() instanceof OwlsSequence) &&
+		!(sequence.eContainer() instanceof OwlsAnyOrder) &&
+		!(sequence.eContainer() instanceof OwlsSplit)){
+	%><%=ident%><process:Sequence>
+			<%=ident%><process:components><%
+				   EList children = sequence.getElements();
+				   GenComposition gen = new GenComposition();
+				   List newArg = new ArrayList();
+				   newArg.add(children);
+				   newArg.add(ident+identAdd);%>
+				   <%=gen.generate(newArg)%>
+			<%=ident%></process:components>
+		<%=ident%></process:Sequence><%
+	}else
+	{
+	  if (sequence.eContainer() instanceof OwlsSequence){%>
+	  	<%=ident%><process:ControlConstructList>
+	  		<%=ident%><list:first>
+				<%=ident%><process:Sequence>
+					<%=ident%><process:components><%
+						   EList children = sequence.getElements();
+						   GenComposition gen = new GenComposition();
+						   List newArg = new ArrayList();
+						   newArg.add(children);
+						   newArg.add(ident+identAdd);%>
+						   <%=gen.generate(newArg)%>
+					<%=ident%></process:components>
+				<%=ident%></process:Sequence>
+		  	<%=ident%></list:first>
+		  	<%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  	%><%=ident%><list:rest><%
+			   		 List newArg2 = new ArrayList();
+				     newArg2.add(rest.subList(1,rest.size()));
+				     newArg2.add(ident+identAdd);%>
+				     <%=gen.generate(newArg2)%>
+		  	<%=ident%></list:rest><%
+		  	}else {
+			%><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+			}%>
+		<%=ident%></process:ControlConstructList><%
+	  }
+	  if ((sequence.eContainer() instanceof OwlsAnyOrder) ||
+	  	  (sequence.eContainer() instanceof OwlsSplit)){%>
+		  <%=ident%><process:ControlConstructBag>
+	  		<%=ident%><list:first>
+				<%=ident%><process:Sequence>
+					<%=ident%><process:components><%
+						   EList children = sequence.getElements();
+						   GenComposition gen = new GenComposition();
+						   List newArg = new ArrayList();
+						   newArg.add(children);
+						   newArg.add(ident+identAdd);%>
+						   <%=gen.generate(newArg)%>
+					<%=ident%></process:components>
+				<%=ident%></process:Sequence>
+		  	<%=ident%></list:first>
+		  	<%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  	%><%=ident%><list:rest><%
+			   		 List newArg2 = new ArrayList();
+				     newArg2.add(rest.subList(1,rest.size()));
+				     newArg2.add(ident+identAdd);%>
+				     <%=gen.generate(newArg2)%>
+		  	<%=ident%></list:rest><%
+		  	}else {
+			%><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+			}%>
+		<%=ident%></process:ControlConstructBag><%
+	  }
+	 }
+}
+if (cc instanceof OwlsSplit){
+	OwlsSplit split = (OwlsSplit)cc;
+	if (!(split.eContainer() instanceof OwlsSequence) &&
+		!(split.eContainer() instanceof OwlsAnyOrder) &&
+		!(split.eContainer() instanceof OwlsSplit)){
+	%><%=ident%><process:Split>
+			<%=ident%><process:components><%
+				   EList children = split.getElements();
+				   GenComposition gen = new GenComposition();
+				   List newArg = new ArrayList();
+				   newArg.add(children);
+				   newArg.add(ident+identAdd);%>
+				   <%=gen.generate(newArg)%>
+			<%=ident%></process:components>
+		<%=ident%></process:Split><%
+	}else
+	{
+	  if ((split.eContainer() instanceof OwlsSequence)){%>
+	  	<%=ident%><process:ControlConstructList>
+	  		<%=ident%><list:first>
+				<%=ident%><process:Split>
+					<%=ident%><process:components><%
+						   EList children = split.getElements();
+						   GenComposition gen = new GenComposition();
+						   List newArg = new ArrayList();
+						   newArg.add(children);
+						   newArg.add(ident+identAdd);%>
+						   <%=gen.generate(newArg)%>
+					<%=ident%></process:components>
+				<%=ident%></process:Split>
+		  	<%=ident%></list:first>
+		  	<%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  	%><%=ident%><list:rest><%
+			   		 List newArg2 = new ArrayList();
+				     newArg2.add(rest.subList(1,rest.size()));
+				     newArg2.add(ident+identAdd);%>
+				     <%=gen.generate(newArg2)%>
+		  	<%=ident%></list:rest><%
+		  	}else {
+			%><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+			}%>
+		<%=ident%></process:ControlConstructList><%
+	  }
+	  if ((split.eContainer() instanceof OwlsAnyOrder) ||
+	  	  (split.eContainer() instanceof OwlsSplit)){%>
+		  <%=ident%><process:ControlConstructBag>
+	  		<%=ident%><list:first>
+				<%=ident%><process:Split>
+					<%=ident%><process:components><%
+						   EList children = split.getElements();
+						   GenComposition gen = new GenComposition();
+						   List newArg = new ArrayList();
+						   newArg.add(children);
+						   newArg.add(ident+identAdd);%>
+						   <%=gen.generate(newArg)%>
+					<%=ident%></process:components>
+				<%=ident%></process:Split>
+		  	<%=ident%></list:first>
+		  	<%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  	%><%=ident%><list:rest><%
+			   		 List newArg2 = new ArrayList();
+				     newArg2.add(rest.subList(1,rest.size()));
+				     newArg2.add(ident+identAdd);%>
+				     <%=gen.generate(newArg2)%>
+		  	<%=ident%></list:rest><%
+		  	}else {
+			%><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+			}%>
+		<%=ident%></process:ControlConstructBag><%
+	  }
+	 }
+}
+if (cc instanceof OwlsAnyOrder){
+	OwlsAnyOrder anyOrder = (OwlsAnyOrder)cc;
+	if ((anyOrder.eContainer() instanceof OwlsSequence) &&
+		(anyOrder.eContainer() instanceof OwlsAnyOrder) &&
+		(anyOrder.eContainer() instanceof OwlsSplit)){
+	%><%=ident%><process:AnyOrder>
+			<%=ident%><process:components><%
+				   EList children = anyOrder.getElements();
+				   GenComposition gen = new GenComposition();
+				   List newArg = new ArrayList();
+				   newArg.add(children);
+				   newArg.add(ident+identAdd);%>
+				   <%=gen.generate(newArg)%>
+			<%=ident%></process:components>
+		<%=ident%></process:AnyOrder><%
+	}else
+	{
+	  if ((anyOrder.eContainer() instanceof OwlsSequence)){%>
+	  	<%=ident%><process:ControlConstructList>
+	  		<%=ident%><list:first>
+				<%=ident%><process:AnyOrder>
+					<%=ident%><process:components><%
+						   EList children = anyOrder.getElements();
+						   GenComposition gen = new GenComposition();
+						   List newArg = new ArrayList();
+						   newArg.add(children);
+						   newArg.add(ident+identAdd);%>
+						   <%=gen.generate(newArg)%>
+					<%=ident%></process:components>
+				<%=ident%></process:AnyOrder>
+		  	<%=ident%></list:first>
+		  	<%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  	%><%=ident%><list:rest><%
+			   		 List newArg2 = new ArrayList();
+				     newArg2.add(rest.subList(1,rest.size()));
+				     newArg2.add(ident+identAdd);%>
+				     <%=gen.generate(newArg)%>
+		  	<%=ident%></list:rest><%
+		  	}else {
+			%><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+			}%>
+		<%=ident%></process:ControlConstructList><%
+	  }
+	  if ((anyOrder.eContainer() instanceof OwlsAnyOrder) ||
+	  	  (anyOrder.eContainer() instanceof OwlsSplit)){%>
+		  <%=ident%><process:ControlConstructBag>
+	  		<%=ident%><list:first>
+				<%=ident%><process:AnyOrder>
+					<%=ident%><process:components><%
+						   EList children = anyOrder.getElements();
+						   GenComposition gen = new GenComposition();
+						   List newArg = new ArrayList();
+						   newArg.add(children);
+						   newArg.add(ident+identAdd);%>
+						   <%=gen.generate(newArg)%>
+					<%=ident%></process:components>
+				<%=ident%></process:AnyOrder>
+		  	<%=ident%></list:first>
+		  	<%if (!(rest.subList(1,rest.size()).isEmpty())){
+		  	%><%=ident%><list:rest><%
+			   		 List newArg2 = new ArrayList();
+				     newArg2.add(rest.subList(1,rest.size()));
+				     newArg2.add(ident+identAdd);%>
+				     <%=gen.generate(newArg2)%>
+		  	<%=ident%></list:rest><%
+		  	}else {
+			%><%=ident%><list:rest rdf:resource="&list;#nil"/><%
+			}%>
+		<%=ident%></process:ControlConstructBag><%
+	  }
+	 }
+} %>

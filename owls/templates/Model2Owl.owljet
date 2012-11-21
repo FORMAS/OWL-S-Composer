@@ -1,0 +1,207 @@
+<%@ jet package="owls.generator"
+class="Model2Owl" imports ="java.util.Iterator org.eclipse.emf.common.util.EList
+java.util.List java.util.ArrayList org.eclipse.emf.ecore.EObject owls.facade.* owls.*;"
+%>
+<% OwlsCompositeProcess compositeProcess = (OwlsCompositeProcess) argument; 
+   Owls owls = compositeProcess.getDescribes().getOwnedBy();
+   EList<OwlsInput> inputs = compositeProcess.getHasInputs();
+   EList<OwlsOutput> outputs = compositeProcess.getHasOutputs();
+   OwlsProcessFacade processFacade = new OwlsProcessFacade(compositeProcess); 
+   EList<OwlsProcess> processes = processFacade.getAllProcess();
+   String ident = new String();
+   
+   for (Iterator i = processes.iterator(); i.hasNext(); ){
+   		processFacade.setProcessRName((OwlsProcess)i.next());
+   }
+%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef[
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.1/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.1/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.1/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.1/Grounding.owl">
+  <!ENTITY expr "http://www.daml.org/services/owl-s/1.1/generic/Expression.owl">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb">
+  <!ENTITY list "http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl"> 
+  <% for (Iterator i = processes.iterator(); i.hasNext(); ) {
+  		OwlsProcess process = (OwlsProcess)i.next();%> 
+  <!ENTITY <%=process.getReferenceName()%> "<%=processFacade.getProcessURI(process)%>">  
+  <% } %>
+  <!ENTITY concepts "http://www.mindswap.org/2004/owl-s/concepts.owl">  
+  <!ENTITY this "<%=owls.getNamespace()%>">  
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#" 
+  xmlns:rdfs="&rdfs;#" 
+  xmlns:owl="&owl;#" 
+  xmlns:xsd="&xsd;#" 
+  xmlns:service="&service;#" 
+  xmlns:profile="&profile;#" 
+  xmlns:process="&process;#" 
+  xmlns:grounding="&grounding;#" 
+  xmlns:expr="&expr;#"
+  xmlns:swrl="&swrl;#"
+  xmlns:list="&list;#"
+  xml:base="&this;"
+  xmlns="&this;#"
+>
+
+<owl:Ontology rdf:about=""><%
+	for (Iterator i = processes.iterator(); i.hasNext(); ) {
+			OwlsProcess process = (OwlsProcess)i.next();%>
+	<owl:imports rdf:resource="&<%=process.getReferenceName()%>;"/><% } %>
+</owl:Ontology>
+
+<!-- Service description -->
+<service:Service rdf:ID="<%=owls.getService().getID() %>">
+	<service:presents rdf:resource="#<%=owls.getProfile().getID() %>"/>
+
+	<service:describedBy rdf:resource="#<%=owls.getProcess().getID() %>"/>
+
+	<service:supports rdf:resource="#<%=owls.getService().getSupports().getID() %>"/>
+</service:Service>
+
+<!-- Profile description -->
+<profile:Profile rdf:ID="<%=owls.getProfile().getID() %>">
+	<service:isPresentedBy rdf:resource="#<%=owls.getService().getID() %>"/>
+
+	<profile:serviceName xml:lang="en"><%=compositeProcess.getLabel()%></profile:serviceName>
+
+ <% 
+     for (Iterator i = inputs.iterator(); i.hasNext(); ) {
+       OwlsInput input = (OwlsInput)i.next();
+ %> 
+	<profile:hasInput rdf:resource="#<%=input.getID()%>"/>
+ <% } 
+     for (Iterator i = outputs.iterator(); i.hasNext(); ) {
+     	OwlsOutput output = (OwlsOutput)i.next();
+ %> 
+	<profile:hasOutput rdf:resource="#<%=output.getID()%>"/>
+ <% } %>
+</profile:Profile>
+
+<!-- Process Model description -->
+<process:CompositeProcess rdf:about="#<%=owls.getProcess().getID() %>">
+	<service:describes rdf:resource="#<%=owls.getService().getID() %>"/>
+	<% for (Iterator i = inputs.iterator(); i.hasNext(); ) {
+       	OwlsInput input = (OwlsInput)i.next();
+ 	%> 
+	<process:hasInput>
+		<process:Input rdf:ID="<%=input.getID()%>">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">
+				<% String parameterType = input.getParameterType();
+					if (parameterType.startsWith("http")){
+						stringBuffer.append(parameterType);
+					} else {
+						stringBuffer.append("&xsd;#"+parameterType);
+					} %></process:parameterType>
+			</process:Input>
+	</process:hasInput>
+	<% }
+     for (Iterator i = outputs.iterator(); i.hasNext(); ) {
+     	OwlsOutput output = (OwlsOutput)i.next();
+ 	%> 
+	<process:hasOutput>
+		<process:Output rdf:ID="<%=output.getID()%>">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">
+				<% String parameterType = output.getParameterType();
+				if (parameterType.startsWith("http")){
+					stringBuffer.append(parameterType);
+				} else {
+					stringBuffer.append("&xsd;#"+parameterType);
+				} %>
+			</process:parameterType>
+		</process:Output>
+	</process:hasOutput><% } %>
+	
+	<process:hasResult>
+		<process:Result>
+			<process:withOutput><%
+			for (Iterator i = processes.iterator(); i.hasNext(); ) {
+				OwlsProcess process = (OwlsProcess)i.next();
+				EList<OwlsAssignClient> clientAssings = process.getMessagesBindings();
+				for (Iterator j = clientAssings.iterator(); j.hasNext(); ) {
+					EObject object = (EObject)j.next();
+					if ( object instanceof OwlsAssignOutputClient) {
+						OwlsAssignOutputClient assignOut = (OwlsAssignOutputClient)object;%>
+				<process:OutputBinding>
+					<process:valueSource>
+						<process:ValueOf>
+						<process:fromProcess rdf:resource="#<%=assignOut.getProcessReference().getPeformedBy().getID()%>"/>
+						<process:theVar rdf:resource="&<%=assignOut.getProcessReference().getReferenceName()%>;#<%=assignOut.getInputReferences().getID()%>"/>
+						</process:ValueOf>
+					</process:valueSource>
+					<process:toParam rdf:resource="#<%=assignOut.getOutputsReferences().getID()%>"/>
+				</process:OutputBinding>
+			</process:withOutput>
+		</process:Result>
+	</process:hasResult><% } 
+	} }%>
+	
+	<process:composedOf>
+     	<% GenComposition gen = new GenComposition();
+     	   List arg = new ArrayList();
+     	   List objects = new ArrayList();
+     	   objects.add(compositeProcess.getComposedOf());
+     	   arg.add(objects);
+     	   arg.add(ident);
+     	   stringBuffer.append(gen.generate(arg));%>
+	</process:composedOf>
+
+</process:CompositeProcess>
+
+<% for (Iterator i = processes.iterator(); i.hasNext(); ) {
+	OwlsProcess process = (OwlsProcess)i.next();%>
+<process:Perform rdf:ID="<%=process.getPeformedBy().getID()%>">
+	<process:process rdf:resource="&<%=process.getReferenceName()%>;#<%=process.getID()%>"/><%
+	EList<OwlsAssignClient> clientAssings = process.getMessagesBindings();
+	for (Iterator j = clientAssings.iterator(); j.hasNext(); ) {
+		EObject object = (EObject)j.next();
+		if ( object instanceof OwlsAssignInputClient) {
+			OwlsAssignInputClient assignIn = (OwlsAssignInputClient)object;%>
+	<process:hasDataFrom>
+		<process:InputBinding>
+			<process:valueSource>
+				<process:ValueOf>
+				<process:fromProcess rdf:resource="&process;#TheParentPerform"/>
+				<process:theVar rdf:resource="#<%=assignIn.getInputReferences().getID()%>"/>
+				</process:ValueOf>
+			</process:valueSource>
+			<process:toParam rdf:resource="&<%=assignIn.getProcessReference().getReferenceName()%>;#<%=assignIn.getOutputsReferences().getID()%>"/>
+		</process:InputBinding>
+	</process:hasDataFrom><% }
+	}
+	EList<OwlsAssign> bindings = process.getBindings();
+	for (Iterator j = bindings.iterator(); j.hasNext(); ) {
+		EObject object = (EObject)j.next();
+		OwlsAssign assign = (OwlsAssign)object;%>
+	<process:hasDataFrom>
+		<process:InputBinding>
+			<process:valueSource>
+				<process:ValueOf>
+				<process:fromProcess rdf:resource="#<%=assign.getSource().getPeformedBy().getID()%>"/>
+				<process:theVar rdf:resource="&<%=assign.getSource().getReferenceName()%>;#<%=assign.getOutputSource().getID()%>"/>
+				</process:ValueOf>
+			</process:valueSource>
+			<process:toParam rdf:resource="&<%=assign.getTarget().getReferenceName()%>;#<%=assign.getInputTarget().getID()%>"/>
+		</process:InputBinding>
+	</process:hasDataFrom><% } %>
+</process:Perform>
+
+<% } %>
+<!-- Grounding description -->
+<grounding:WsdlGrounding rdf:ID="<%=owls.getService().getSupports().getID() %>">
+	<service:supportedBy rdf:resource="#<%=owls.getService().getID() %>"/><%
+	for (Iterator i = processes.iterator(); i.hasNext(); ) {
+	      OwlsProcess process = (OwlsProcess)i.next();
+	      EList<OwlsWsdlAtomicProcessGrounding> groundings = process.getDescribes().getSupports().getHasAtomicProcessGrounding();
+	      OwlsWsdlAtomicProcessGrounding atomicGrounding = (OwlsWsdlAtomicProcessGrounding)groundings.get(0);%>
+	<grounding:hasAtomicProcessGrounding rdf:resource="&<%=process.getReferenceName()%>;#<%=atomicGrounding.getID()%>"/><% } %>
+</grounding:WsdlGrounding>
+
+</rdf:RDF>
