@@ -1,2 +1,4 @@
 #Ignoring the SVN repository
 .svn
+
+*/doc
