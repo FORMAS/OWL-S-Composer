@@ -1,4 +1,5 @@
-#Ignoring the SVN repository
+# Ignoring the SVN repository.
 .svn
 
+# Removing the documentation files. The user can generate it if he wants.
 */doc/*
