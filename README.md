@@ -10,11 +10,13 @@ OWL-S Composer is a plug-in for the Eclipse IDE developed by [FORMAS](http://wik
 * Run compositions;
 * Track running services.
 
-This tool is being developed mainly by Computer's Science undergraduate students as part of their final report.
+This tool is being mainly developed by Computer's Science undergraduate students as part of their final report.
 
 ## Download
 
-This project source code is hosted in GitHub. You can access it through this [link](https://github.com/FORMAS/OWL-S-Composer). Or you can follow this [link](http://sourceforge.net/projects/owl-scomposer/) get the latest stable binaries at SourceForge.
+This project source code is hosted in GitHub. You can access it through this [link](https://github.com/FORMAS/OWL-S-Composer). 
+
+Or you can follow this [link](http://sourceforge.net/projects/owl-scomposer/) get the latest stable binaries at SourceForge.
 
 ## Installation
 
