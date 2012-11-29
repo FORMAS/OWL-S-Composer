@@ -16,7 +16,7 @@ This tool is being mainly developed by Computer's Science undergraduate students
 
 This project source code is hosted in GitHub. You can access it through this [link](https://github.com/FORMAS/OWL-S-Composer). 
 
-Or you can follow this [link](http://sourceforge.net/projects/owl-scomposer/) get the latest stable binaries at SourceForge.
+Or you can follow this [link](http://sourceforge.net/projects/owl-scomposer/) to get the latest stable binaries at SourceForge.
 
 ## Installation
 

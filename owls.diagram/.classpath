@@ -7,6 +7,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/andre/workspace/owls/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/UFBA/TCC/PF1/workspace/workspace/owls.diagram/owls_3.jar"/>
+	<classpathentry kind="lib" path="/owls/owl-s.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
