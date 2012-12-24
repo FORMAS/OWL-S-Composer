@@ -42,5 +42,6 @@ Eclipse-LazyStart: true
 Import-Package: org.mindswap.owls.grounding,
  org.mindswap.owls.process,
  org.mindswap.owls.service,
+ owls.diagram.part,
  pf.main,
  pf.vo
