@@ -38,7 +38,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.draw2d;visibility:=reexport,
  org.eclipse.emf.validation;visibility:=reexport,
  owls
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 Import-Package: org.mindswap.owls.grounding,
  org.mindswap.owls.process,
  org.mindswap.owls.service,
