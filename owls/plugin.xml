@@ -64,9 +64,38 @@
                menubarPath="OWLS.menu3/group3">
          </action>
       </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="OWLS.contribution4"
+            objectClass="org.eclipse.core.resources.IProject">
+         <menu
+               id="OWLS.menu4"
+               label="%menu.label.4"
+               path="additions">
+            <groupMarker
+                  name="group4">
+            </groupMarker>
+         </menu>
+         <action
+               class="owls.actions.CloudPrePublishAction"
+               enablesFor="1"
+               id="owls.action4"
+               label="%action.label.4"
+               menubarPath="OWLS.menu4/group4">
+         </action>
+      </objectContribution>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
+      <wizard
+            category="owls.diagram.category"
+            class="owls.wizards.OwlsFileGenerationWizard"
+            id="owls.FileGeneratorWizard"
+            name="%wizard.name.0">
+         <description>
+            %wizard.description.0
+         </description>
+      </wizard>
       <wizard
             category="owls.diagram.category"
             class="owls.wizards.WSDL2OWLwizard"
@@ -75,15 +104,6 @@
             name="%wizard.name">
          <description>
             %wizard.description
-         </description>
-      </wizard>
-      <wizard
-            category="owls.diagram.category"
-            class="owls.wizards.OwlsFileGenerationWizard"
-            id="owls.FileGeneratorWizard"
-            name="%wizard.name.0">
-         <description>
-            %wizard.description.0
          </description>
       </wizard>
       <wizard

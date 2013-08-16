@@ -14,6 +14,7 @@ package owls.plugin;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * @author Andre Fonseca
@@ -22,6 +23,11 @@ import org.eclipse.ui.IWorkbenchPart;
 public class SelectionListener implements ISelectionListener {
 	
 	private ISelection currentSelection;
+	
+	public SelectionListener()
+	{
+		currentSelection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService().getSelection();
+	}
 
 	public void selectionChanged(IWorkbenchPart sourcepart, ISelection selection) {
 		// we ignore our own selections

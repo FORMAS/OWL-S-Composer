@@ -80,7 +80,10 @@ public class Activator extends AbstractUIPlugin {
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection ss = (IStructuredSelection) selection;
 			Object currentSelection = ss.getFirstElement();
-			if (currentSelection instanceof IAdaptable) {
+			if (currentSelection instanceof IResource) {
+				currentProject= ((IResource)currentSelection).getProject();
+	        } 
+			else if (currentSelection instanceof IAdaptable) {
 				IAdaptable a = (IAdaptable)currentSelection;
 				Object adapter = a.getAdapter(IResource.class);
 				if (adapter instanceof IResource) {
