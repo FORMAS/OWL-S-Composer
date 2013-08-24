@@ -7,40 +7,48 @@ import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 public class CloudPrePublishEucalyptusWizardPage extends WizardPage {
-	private Text deployUrl;
+	private Text accessKey;
+	private Text secretKey;
 
 	protected CloudPrePublishEucalyptusWizardPage(String pageName) {
 		super(pageName);
 	}
 
 	public void createControl(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout gridLayout = new GridLayout();
-		int columnsNumber = 2;
+		Composite composite = new Composite(parent, SWT.NONE);	
 		
-		gridLayout.numColumns = columnsNumber;
-		gridLayout.verticalSpacing = 9;
+		gridLayout.numColumns = 1;
 		composite.setLayout(gridLayout);
+
+		GridData gridData = new GridData(GridData.FILL, GridData.BEGINNING, true, true);
+		gridLayout = new GridLayout(2, false);
+		Group credentialsGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);		
+		credentialsGroup.setLayout(gridLayout);
+		credentialsGroup.setLayoutData(gridData);
+		credentialsGroup.setText("Eucalyptus credentials");
 		
-		new Label(composite, SWT.NONE).setText("Deploy url");
-		deployUrl = new Text(composite, SWT.BORDER);
-		deployUrl.setSize(20, 10);
-		deployUrl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		new Label(credentialsGroup, SWT.NONE).setText("API Key:");
+		accessKey = new Text(credentialsGroup, SWT.BORDER);
+		accessKey.setLayoutData(gridData);
 		
-		
-		Composite classesComposite = new Composite(parent, SWT.NONE);
-		
-		new Button(classesComposite, SWT.FLAT).setText("Add");
-		
+		new Label(credentialsGroup, SWT.NONE).setText("Secret Key:");
+		secretKey = new Text(credentialsGroup, SWT.BORDER | SWT.PASSWORD);
+		secretKey.setLayoutData(gridData);
+
 		setControl(composite);
 	}
-	
-	public Text getDeployUrl() {
-		return deployUrl;
-	}
-
+    
+    public Text getAccessKey() {
+    	return accessKey;
+    }
+    
+    public Text getSecretKey() {
+    	return secretKey;
+    }
 }

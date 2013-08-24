@@ -80,7 +80,11 @@ public class CloudPrePublishWizard extends Wizard implements INewWizard {
 					).prepareToPublish();
 		}
 		if (pageOne.getEucalyptusCheckbox().getSelection()) {
-			new EucalyptusCloudService(project.getLocation(), pageThree.getDeployUrl().getText()).prepareToPublish();
+			new EucalyptusCloudService(project,
+					pageOne.getCheckedPackageNames(),
+					pageThree.getAccessKey().getText(),
+					pageThree.getSecretKey().getText()
+					).prepareToPublish();
 		}
 		return true;
 	}
