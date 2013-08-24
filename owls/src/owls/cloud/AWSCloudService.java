@@ -1,12 +1,15 @@
 package owls.cloud;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -264,7 +267,7 @@ public class AWSCloudService implements UnifiedCloudService {
 						if (!resources[i].getName().matches("\\w*.java$")) {
 							break;
 						}
-						if (endpointList.item(j).getAttributes().getNamedItem("name").toString().equals(resources[i].getName())) {
+						if (endpointList.item(j).getAttributes().getNamedItem("name").getTextContent().equals(resources[i].getName().replace(".java", ""))) {
 							break;
 						} else {
 							if (j == endpointList.getLength() - 1) {
@@ -331,11 +334,45 @@ public class AWSCloudService implements UnifiedCloudService {
 	public boolean updateCredentials() {
 		try {
 			File file = new File(project.getFile("src\\AwsCredentials.properties").getLocation().toOSString());
-			file.delete();
-			file.createNewFile();
-			
-			String content = "secretKey=" + secretKey + "\n" +
-				"accessKey=" + accessKey;
+			Date date = new Date();
+			String content = "";
+			if (!file.exists()) {
+				file.createNewFile();
+				content = "#Insert your AWS credentials from http://aws.amazon.com/security-credentials\r\n" +
+				"#Last updated " + date.toString() + "\r\n" + 
+				"secretKey=" + secretKey + "\r\n" +
+				"accessKey=" + accessKey + "\r\n\r\n";
+			} else {
+				BufferedReader br = new BufferedReader(new FileReader(file));
+				String line = "";
+				boolean credentialExists;
+				credentialExists = false;
+				while ((line = br.readLine()) != null) {
+					boolean credentialToUpdate;
+					credentialToUpdate = false;
+					if (line.startsWith("#Insert your AWS credentials")) {
+						content += line + "\r\n";
+						credentialExists = true;
+						credentialToUpdate = true;
+					} else if (line.startsWith("#Last updated ") && credentialToUpdate) {
+						content += "#Last updated " + date.toString() + "\r\n";
+					} else if (line.startsWith("secretKey=") && credentialToUpdate) {
+						content += "secretKey=" + secretKey + "\r\n";
+					} else if (line.startsWith("accessKey=") && credentialToUpdate) { 
+						content += "accessKey=" + accessKey + "\r\n\r\n";
+						credentialToUpdate = false;
+					} else {
+						content += line + "\r\n";
+					}
+				}
+				if (!credentialExists) {
+					content = "#Insert your AWS credentials from http://aws.amazon.com/security-credentials\r\n" +
+					"#Last updated " + date.toString() + "\r\n" + 
+					"secretKey=" + secretKey + "\r\n" +
+					"accessKey=" + accessKey + "\r\n\r\n";
+				}
+			}
+
 			
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);

@@ -30,8 +30,8 @@ public class CloudPrePublishWizard extends Wizard implements INewWizard {
 		pageTwo.setTitle("Publish on Amazon Web Services");
 		pageTwo.setDescription("Fill the form below if you wish to publish your project on Amazon Web Services platform.");
 		pageThree = new CloudPrePublishEucalyptusWizardPage("From Scratch Project Wizard");
-		pageThree.setTitle("Publish on Google App Engine");
-		pageThree.setDescription("Fill the form below if you wish to publish your project on Google App Engine platform.");
+		pageThree.setTitle("Publish on Eucalyptus");
+		pageThree.setDescription("Fill the form below if you wish to publish your project on Eucalyptus platform.");
 		
 		addPage(pageOne);
 		addPage(pageTwo);
