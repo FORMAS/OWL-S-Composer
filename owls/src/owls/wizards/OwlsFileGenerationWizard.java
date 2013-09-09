@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     André Fonseca - initial API and implementation
+ *     Andrï¿½ Fonseca - initial API and implementation
  *******************************************************************************/
 
 package owls.wizards;
@@ -75,7 +75,7 @@ public class OwlsFileGenerationWizard extends Wizard implements INewWizard{
 			Throwable realException = e.getTargetException();
 			System.err.println("ERRO ENCONTRADO NA CRIACAO DO CONTAINER - OwlsFileGenerationWizard");
 			e.printStackTrace(System.err);
-			MessageDialog.openError(getShell(), "Error", realException.getMessage());
+			MessageDialog.openError(getShell(), "Error", "One or more connections on the composition have properties which do not have a value set.");
 			return false;
 		}
 		return true;
