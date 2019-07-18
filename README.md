@@ -34,7 +34,7 @@ Under construction...
 
 Below is the list of the people involved with the plug-in's development. Some of them are no longer working in the project:
 
-* [Prof. Daniela Barreiro Claro, Ph.D.](http://homes.dcc.ufba.br/~dclaro/) (**Project leader**);
+* [Prof. Daniela Barreiro Claro, Ph.D.](http://formas.ufba.br/dclaro/) (**Project leader**);
 * Marco Antonio Filho;
 * Efraim Machado;
 * Fabricio de Oliveira Alves;
