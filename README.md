@@ -2,7 +2,7 @@
 
 ## About
 
-OWL-S Composer is a plug-in for the Eclipse IDE developed by [FORMAS](http://wiki.dcc.ufba.br/FORMAS/WebHome) (Research Group on Semantic Applications and Formalisms) at UFBA (Federal University of Bahia). The plug-in offers a set of features to handle semantic web services such as:
+OWL-S Composer is a plug-in for the Eclipse IDE developed by [FORMAS](http://formas.ufba.br) (Research Group on Semantic Applications and Formalisms) at UFBA (Federal University of Bahia). The plug-in offers a set of features to handle semantic web services such as:
 
 * Compare compositions by semantic similarity;
 * Compose services through the use of visual diagrams;
